@@ -26,11 +26,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        score = Mathf.FloorToInt(elapsedTime * scoreMultipier);
-        Debug.Log("Score " + score);
-        scoreText.text = "Score " + score;
-
+        HandleScore();
 
         HandleMovement();
 
@@ -38,6 +34,14 @@ public class PlayerController : MonoBehaviour
 
         HandlePlayerMaxSpeed();
 
+    }
+
+    private void HandleScore()
+    {
+        elapsedTime += Time.deltaTime;
+        score = Mathf.FloorToInt(elapsedTime * scoreMultipier);
+        Debug.Log("Score " + score);
+        scoreText.text = "Score " + score;
     }
 
     private void HandlePlayerMaxSpeed()
