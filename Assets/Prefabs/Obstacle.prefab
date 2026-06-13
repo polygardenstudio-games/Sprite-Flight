@@ -190,3 +190,5 @@ MonoBehaviour:
   maxSize: 2
   minSpeed: 100
   maxSpeed: 300
+  maxSpinSpeed: 10
+  SmallExplosion: {fileID: 1686847657604708646, guid: 7b92df2f65b1fb244bb6ba430943a4f5, type: 3}

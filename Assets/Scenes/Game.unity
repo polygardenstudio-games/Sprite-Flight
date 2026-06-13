@@ -199,6 +199,7 @@ MonoBehaviour:
   thrustForce: 4
   maxSpeed: 5
   uiDocument: {fileID: 1824589858}
+  explosionEffect: {fileID: 5618429738756847030, guid: 79c2d65516964a04889741ae8d68bcf2, type: 3}
   busterFlame: {fileID: 700022742}
 --- !u!1001 &218860713
 PrefabInstance:
