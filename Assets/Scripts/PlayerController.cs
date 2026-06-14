@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,20 +7,21 @@ public class PlayerController : MonoBehaviour
 {
     private float elapsedTime = 0f;
     private float score = 0f;
-    [SerializeField] private float scoreMultipier = 10f;
 
-    [SerializeField] private float thrustForce;
-    [SerializeField] private float maxSpeed;
+    public float scoreMultiplier = 10f;
+    public float thrustForce = 1f;
 
+    public float maxSpeed = 5f;
     Rigidbody2D rb;
 
-    [SerializeField] private UIDocument uiDocument;
+    public UIDocument uiDocument;
     private Label scoreText;
     private Button restartButton;
 
-    [SerializeField] private GameObject explosionEffect;
+    public GameObject explosionEffect;
 
-    public GameObject busterFlame;
+    public GameObject boosterFlame;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,34 +29,38 @@ public class PlayerController : MonoBehaviour
         restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
         restartButton.style.display = DisplayStyle.None;
         restartButton.clicked += ReloadScene;
-        
+
     }
 
+    // Update is called once per frame
     void Update()
     {
         HandleScore();
 
         HandleMovement();
 
-        HandlleBusterFlame();
+        HandlePlayerSpeed();
 
-        HandlePlayerMaxSpeed();
+        HandleBoosterFlame();
 
     }
 
-    private void HandleScore()
+    private void HandleBoosterFlame()
     {
-        elapsedTime += Time.deltaTime;
-        score = Mathf.FloorToInt(elapsedTime * scoreMultipier);
-        Debug.Log("Score " + score);
-        scoreText.text = "Score " + score;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            boosterFlame.SetActive(true);
+        }
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            boosterFlame.SetActive(false);
+        }
     }
 
-    private void HandlePlayerMaxSpeed()
+    private void HandlePlayerSpeed()
     {
         if (rb.linearVelocity.magnitude > maxSpeed)
         {
-            // Set Player max speed
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
         }
     }
@@ -65,38 +69,35 @@ public class PlayerController : MonoBehaviour
     {
         if (Mouse.current.leftButton.isPressed)
         {
+
             // Calculate mouse direction
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
             Vector2 direction = (mousePos - transform.position).normalized;
 
-            //Move 
+            // Move player in direction of mouse
             transform.up = direction;
             rb.AddForce(direction * thrustForce);
+
         }
     }
 
-    private void HandlleBusterFlame()
+    private void HandleScore()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            busterFlame.SetActive(true);
-        }
-
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            busterFlame.SetActive(false);
-        }
+        elapsedTime += Time.deltaTime;
+        score = Mathf.FloorToInt(elapsedTime * scoreMultiplier);
+        scoreText.text = "Score: " + score;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
         Instantiate(explosionEffect, transform.position, transform.rotation);
         restartButton.style.display = DisplayStyle.Flex;
     }
 
-    private void ReloadScene()
+    void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9100409914122589842}
   - component: {fileID: 4528751216962299703}
   - component: {fileID: 7854118477712369903}
-  - component: {fileID: 4007181789518568502}
+  - component: {fileID: 1148111982926018377}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -108,7 +108,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -174,7 +174,7 @@ PolygonCollider2D:
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
   m_UseDelaunayMesh: 1
---- !u!114 &4007181789518568502
+--- !u!114 &1148111982926018377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,8 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Obstacles
   minSize: 0.5
-  maxSize: 2
-  minSpeed: 100
-  maxSpeed: 300
-  maxSpinSpeed: 10
-  SmallExplosion: {fileID: 1686847657604708646, guid: 7b92df2f65b1fb244bb6ba430943a4f5, type: 3}
+  maxSize: 1.5
+  minSpeed: 50
+  maxSpeed: 150
+  smallExplosion: {fileID: 1686847657604708646, guid: 7b92df2f65b1fb244bb6ba430943a4f5, type: 3}
